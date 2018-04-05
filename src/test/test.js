@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from '../App.js';
+import Quiz from '../components/Quiz.js';
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { expect } from 'chai';
@@ -16,13 +17,22 @@ describe('App', function() {
       ReactDOM.render(<App />, div);
       ReactDOM.unmountComponentAtNode(div);
     });
-
-    it('has the text hello ', () => {
-    	const wrapper = shallow(<App />);
-      expect(wrapper.text()).to.equal('hello');
-
-      // expect(wrapper.find('.application')).to.have.length(1);
+    
+    it('renders the quiz component ', () => {
+      const wrapper = shallow(<App />);
+      expect(wrapper.find(Quiz)).to.have.length(1);
     });
+
+  });
+
+  describe('Quiz', function() {
+    it('renders a state name and the text State:', () => {
+
+      // const sampleArray = [{name: "Alabama", capital: "Montgomery"}, {name: "Alaska", capital: "Juneau"}, {name: "Arizona", capital: "Pheonix"}];
+      const sampleArray = [{name: "Alabama", capital: "Montgomery"}];
+      const wrapper = shallow(<Quiz statesAndCapitals={sampleArray} />);
+      expect(wrapper.find(".quiz").text()).to.be.equal(`State: ${sampleArray[0].name}`);
+    });    
 
   });
 });
