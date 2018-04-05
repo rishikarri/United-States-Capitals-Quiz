@@ -1,9 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from '../App.js';
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
+import { shallow, render } from 'enzyme';
 
+Enzyme.configure({ adapter: new Adapter() });
 
 
 describe('App', function() {
@@ -14,13 +17,11 @@ describe('App', function() {
       ReactDOM.unmountComponentAtNode(div);
     });
 
-    it('has the text hello', () => {
+    it('has the text hello ', () => {
     	const wrapper = shallow(<App />);
+      expect(wrapper.text()).to.equal('hello');
 
-      // expect(wrapper.find('.App').text()).to.be.equal('hello');
-      expect(wrapper.find('#application')).to.have.length(1);
-
-
+      // expect(wrapper.find('.application')).to.have.length(1);
     });
 
   });
