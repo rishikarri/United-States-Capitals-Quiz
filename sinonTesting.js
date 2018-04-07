@@ -30,10 +30,10 @@ class Animal {
 
 // user.setName(); 
 
-
-
 const cat = new Animal('Ralph');
 console.log(cat.name);
+
+// spies can be conveinent to verify that a callback was called 
 
 // create a spy for the setName function
 
@@ -52,4 +52,44 @@ console.log(cat.name)
 
 console.log(setNameSpy.callCount, 'call count');
 
+// console.log(sinon.assert.calledOnce(callBack));
+
 setNameSpy.restore(); 
+
+
+const stub = sinon.stub(); 
+
+stub('hello'); 
+
+console.log(stub.firstCall.args); 
+
+// Practice using stubs 
+
+console.log('#####################################################');
+
+
+// this posts something to a database and then runs a callbcak - this is the function we are trying to test
+function saveUser(user, callback) {
+  $.post('/users', {
+    first: user.firstname, 
+    last: user.lastname
+  }, callback)
+}
+
+
+describe('saveUser', function() {
+  it ('should call callback after saving', function() {
+    // emulate the post 
+    const post = sinon.stub($, 'post'); 
+    post.yields(); 
+   
+
+    const callback = sinon.spy(); 
+
+    // this calls  - when post is called it doesn't actually go to the datbase
+    saveUser({
+      firstName: 'han',
+      lastName: 'solo'
+    }, callback)
+  })
+})
