@@ -6,17 +6,7 @@ import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { expect } from 'chai';
 import { shallow, render } from 'enzyme';
-import sinon from 'sinon';
 
-Enzyme.configure({ adapter: new Adapter() });
-
-const spy = sinon.spy(); 
-
-spy('Hello', 'World');
-
-//now we can get information about hte call
-
-console.log(spy.firstCall);
 
 
 describe('US States and Capitals Quiz', function() {
